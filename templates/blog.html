@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+    window.onload = function() {
+        setTimeout(function() {
+            document.getElementById('posts').style.display = 'block';
+        }, 3000);
+    };
+
+# this JS delays displaying the 'posts' element by 3 seconds, then makes it visible with 'block'
+# allows for slow internet connections
+
+    </script>
+</head>
+<body>
+    <h1>This is the blog page</h1>
+
+    <a href="{{ url_for('homepage') }}" class="nav-link" id="home-link">Go to home</a>
+    <a href="{{ url_for('add_post') }}" class="nav-link" id="add-post-link">Create post</a>
+
+    {% if posts|length > 0 %}
+    <ol id="posts" style="display: none">
+        {% for post in posts %}
+        <li class="post"><a href="{{ url_for('see_post', title=post['title']) }}" class="post-link">{{ post['title'] }}</a></li>
+        {% endfor %}
+    </ol>
+    {% endif %}
+</body>
+</html>
+
+<!--some jinja2 Flask code that lets us intersperse something similar to Python in the HTML to iterate over posts-->
